@@ -103,7 +103,7 @@ public class SootDriver {
 		
 		opts.add("-p");
 		opts.add("cg.spark");
-		opts.add("geom-eval:2");
+		opts.add("geom-eval:1");
 		
 		opts.add("-p");
 		opts.add("cg.spark");
@@ -119,11 +119,11 @@ public class SootDriver {
 		
 		opts.add("-p");
 		opts.add("cg.spark");
-		opts.add("geom-runs:2");
+		opts.add("geom-runs:1");
 		
 		opts.add("-p");
 		opts.add("cg.spark");
-		opts.add("geom-app-only:false");
+		opts.add("geom-app-only:true");
 	}
 	
 	public static void main(String[] args) throws FileNotFoundException, InterruptedException 
@@ -180,7 +180,7 @@ public class SootDriver {
 		
 		
 		
-		String run_test1 = "-w -cp /home/xiao/git/soot/classes:/opt/jdk1.4.0/jre/lib/rt.jar mypack.GeomQueryTests";
+		String run_test1 = "-w -cp /home/xiao/git/sootTester/classes:/opt/jdk1.4.0/jre/lib/rt.jar testCases.Hello";
 		
 		String run_multitest = "-w -cp /home/xiao/workspace/TA3111/bin:/opt/jdk1.5.0_22/jre/lib/rt.jar:/opt/jdk1.5.0_22/jre/lib/jce.jar MultiThreadTest";
 		
@@ -318,6 +318,7 @@ public class SootDriver {
 		
 		String run_luindex_default = "-w -p cg reflection-log:/home/xiao/program/benchmarks/java/tamiflex/out/luindex-default/refl.log -cp /home/xiao/program/benchmarks/java/tamiflex/out/luindex-default:/home/xiao/program/benchmarks/java/tamiflex/dacapo-9.12/:/home/xiao/program/benchmarks/java/tamiflex/dacapo-9.12/jar/lucene-core-2.4.jar:/home/xiao/program/benchmarks/java/tamiflex/dacapo-9.12/jar/luindex.jar:/home/xiao/library/commons-cli-1.2.jar:/opt/jdk1.6.0_21/jre/lib/rt.jar:/opt/jdk1.6.0_21/jre/lib/jce.jar -main-class Harness Harness";
 		
+		String run_rongxin_antlr = "-w -allow-phantom-refs -p cg reflection-log:/home/xiao/program/benchmarks/antlr/out/refl.log -cp /home/xiao/program/benchmarks/antlr/out:/home/xiao/program/benchmarks/java/dacapo-2006/antlr-deps.jar:/opt/jdk1.6.0_21/jre/lib/rt.jar:/opt/jdk1.6.0_21/jre/lib/jce.jar:/opt/jdk1.6.0_21/jre/lib/jsse.jar -main-class Harness Harness";
 		
 //		test_cases.add( new benchmark(run_test1, "Test1") );
 //		test_cases.add( new benchmark(run_multitest, "multitest") );
@@ -374,7 +375,7 @@ public class SootDriver {
 //		test_cases.add( new benchmark(run_pmd_2006, "pmd_2006") );
 //		test_cases.add( new benchmark(run_xalan_2006, "xalan_2006") );
 //		test_cases.add( new benchmark(run_chart_2006, "chart_2006") );
-		test_cases.add( new benchmark(run_eclipse_2006, "eclipse_2006") );
+//		test_cases.add( new benchmark(run_eclipse_2006, "eclipse_2006") );
 //		test_cases.add( new benchmark(run_hsqldb_2006, "hsqldb_2006") );
 //		test_cases.add( new benchmark(run_jedit_1_4, "jedit1") );
 //		test_cases.add( new benchmark(run_megamek_1_4, "megamek") );
@@ -387,6 +388,7 @@ public class SootDriver {
 //		test_cases.add( new benchmark(run_avrora_default, "avrora-huge") );
 //		test_cases.add( new benchmark(run_luindex_default, "luindex_default") );
 		
+		test_cases.add( new benchmark(run_rongxin_antlr, "antlr_2006") );
 		
 		boolean isDump = false;
 
@@ -414,7 +416,8 @@ public class SootDriver {
 			Pack wjtp = PackManager.v().getPack("wjtp");
 //			wjtp.add(new Transform("wjtp.muvi", new TestQueryByAnyEdge()));
 //			wjtp.add(new Transform("wjtp.muvi", new CallBackTester()));
-			wjtp.add(new Transform("wjtp.muvi", new AliasTester()));
+//			wjtp.add(new Transform("wjtp.muvi", new AliasTester()));
+			wjtp.add(new Transform("wjtp.muvi", new HelloTester()));
 			
 			// We start a new thread to run soot
 			Main.main( opts.toArray(new String[0]) );

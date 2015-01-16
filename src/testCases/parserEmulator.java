@@ -1,4 +1,4 @@
-package testDrivers;
+package testCases;
 
 import java.util.HashSet;
 import java.util.Random;

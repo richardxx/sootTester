@@ -212,6 +212,10 @@ public class SideEffectAnalyzer
 				if ( op instanceof StaticFieldRef ) {
 					// f = xxxxx or xxxxx = f
 					SootField f = ((StaticFieldRef)op).getField();
+					/**
+					 * Basically, varnode does not accept non-reference type.
+					 * Following statement can cause runtime errors frequently.
+					 */
 					GlobalVarNode vn = geomPTA.makeGlobalVarNode(f, f.getType());
 					
 					if ( geomPTA.isExceptionPointer(vn) == false ) {

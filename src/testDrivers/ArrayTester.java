@@ -2,8 +2,6 @@ package testDrivers;
 
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Random;
-
 import soot.Local;
 import soot.PointsToAnalysis;
 import soot.Scene;
@@ -19,43 +17,8 @@ import soot.jimple.toolkits.callgraph.CallGraph;
 import soot.jimple.toolkits.callgraph.Edge;
 import soot.util.Chain;
 
-public class Array {
-	private Random ran = new Random(1);
 
-	public static void main(String args[]) {
-		new Array().onCreate();
-	}
-
-	public void onCreate() {
-		method1();
-	}
-
-	public void method1() {
-		String[][] arr = method2();
-
-		/**
-		 * PTA query with main->onCreate as context edge for local arr does not
-		 * include allocnode returned from method2()
-		 **/
-		if (arr == null)
-			arr = new String[2][2];
-
-		method3(arr);
-	}
-
-	public String[][] method2() {
-		if (ran.nextBoolean())
-			return new String[2][2];
-
-		return null;
-	}
-
-	public void method3(String[][] arr) {
-		System.out.println(arr);
-	}
-}
-
-class arrayQueryTester extends SceneTransformer {
+public class ArrayTester extends SceneTransformer {
 	@Override
 	protected void internalTransform(String phaseName, Map options) {
 		// Obtain the points-to analyzer
@@ -66,7 +29,7 @@ class arrayQueryTester extends SceneTransformer {
 		System.err.println("Query testing starts.");
 
 		// classes
-		SootClass arrayClass = Scene.v().getSootClass("mypack.Array");
+		SootClass arrayClass = Scene.v().getSootClass("testCases.Array");
 
 		// methods
 		SootMethod mainMethod = Scene.v().getMainMethod();

@@ -1,6 +1,5 @@
 package testDrivers;
 
-import geomDumper.ContextTranslator;
 import geomDumper.PointsToDumper;
 import geomDumper.PtInfoCollector;
 import geomDumper.SideEffectAnalyzer;

@@ -12,11 +12,15 @@ import soot.AnySubType;
 import soot.ArrayType;
 import soot.FastHierarchy;
 import soot.Local;
+import soot.Main;
+import soot.Pack;
+import soot.PackManager;
 import soot.PointsToAnalysis;
 import soot.RefType;
 import soot.Scene;
 import soot.SceneTransformer;
 import soot.SootMethod;
+import soot.Transform;
 import soot.Type;
 import soot.Value;
 import soot.jimple.InterfaceInvokeExpr;
@@ -36,8 +40,36 @@ import soot.jimple.toolkits.callgraph.CallGraph;
 import soot.jimple.toolkits.callgraph.Edge;
 import soot.util.queue.QueueReader;
 
-public class CallBackTester extends SceneTransformer {
+public class CallBackTester extends SceneTransformer 
+{
 
+	public static void main(String[] args) 
+	{
+		// We first extract the options
+		Vector<String> new_opts = new Vector<String>();
+		
+		for ( int i = 0; i < args.length; i++ ) {
+			String opt = args[i];
+			if (opt.equals("-dump_points_to")) {
+				if ( i+1 >= args.length )
+					throw new RuntimeException("Argument to -dump_points_to option is wrong");
+				// skip
+				++i;
+			}
+			else if (opt.equals("-dump_mod_ref") ) {
+				// skip
+			}
+			else {
+				new_opts.add(opt);
+			}
+		}
+		
+		// Install the dump transformer
+		Pack wjtp = PackManager.v().getPack("wjtp");
+		wjtp.add(new Transform("wjtp.tpts",new CallBackTester()));
+		Main.main(new_opts.toArray(new String[0]));
+	}
+	
 	@Override
 	protected void internalTransform(String phaseName,
 			Map<String, String> options) {

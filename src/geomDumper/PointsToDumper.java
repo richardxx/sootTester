@@ -70,6 +70,9 @@ public class PointsToDumper
 			file.println( ptsProvider.getNumberOfPointers() + " " + ptsProvider.getNumberOfObjects() );
 			
 			for (IVarAbstraction pn : ptsProvider.pointers) {
+				Node v = pn.getWrappedNode();
+				if ( ptsProvider.isExceptionPointer(v) ) continue;
+				
 				// TODO: eliminate the identical rows
 //				IVarAbstraction rep = pn.getRepresentative();
 //				if ( rep != pn ) {
@@ -113,6 +116,8 @@ public class PointsToDumper
 			
 			for ( CallsiteContextVar cvar : ContextTranslator.pts_1cfa_map ) {
 				Node v = cvar.var;
+				if ( ptsProvider.isExceptionPointer(v) ) continue;
+				
 				IVarAbstraction pn = ptsProvider.findInternalNode( v );
 				pn = pn.getRepresentative();
 
@@ -176,6 +181,9 @@ public class PointsToDumper
 			
 			// The points-to matrix
 			for (IVarAbstraction pn : ptsProvider.pointers ) {
+				Node v = pn.getWrappedNode();
+				if ( ptsProvider.isExceptionPointer(v) ) continue;
+				
 				pn = pn.getRepresentative();
 				
 				objs_1cfa.prepare();
@@ -221,6 +229,8 @@ public class PointsToDumper
 			
 			for ( CallsiteContextVar cvar : ContextTranslator.pts_1cfa_map ) {
 				Node v = cvar.var;
+				if ( ptsProvider.isExceptionPointer(v) ) continue;
+				
 				IVarAbstraction pn = ptsProvider.findInternalNode( v );
 				pn = pn.getRepresentative();
 				
@@ -278,6 +288,8 @@ public class PointsToDumper
 			// Pass 1: We collect the intervals for every object
 			for ( CallsiteContextVar cvar : ContextTranslator.pts_1cfa_map ) {
 				Node v = cvar.var;
+				if ( ptsProvider.isExceptionPointer(v) ) continue;
+				
 				IVarAbstraction pn = ptsProvider.findInternalNode( v );
 				pn = pn.getRepresentative();
 				
@@ -349,6 +361,8 @@ public class PointsToDumper
 			Set<Integer> outList = new TreeSet<Integer>();
 			for ( CallsiteContextVar cvar : ContextTranslator.pts_1cfa_map ) {
 				Node v = cvar.var;
+				if ( ptsProvider.isExceptionPointer(v) ) continue;
+				
 				IVarAbstraction pn = ptsProvider.findInternalNode( v );
 				pn = pn.getRepresentative();
 				

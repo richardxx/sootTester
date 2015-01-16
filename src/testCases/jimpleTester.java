@@ -1,4 +1,4 @@
-package testDrivers;
+package testCases;
 
 public class jimpleTester {
 
