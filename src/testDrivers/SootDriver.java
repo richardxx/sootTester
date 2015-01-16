@@ -12,7 +12,11 @@ import soot.Pack;
 import soot.PackManager;
 import soot.Transform;
 
-
+/**
+ * Select a test case, construct the soot options, and run soot.
+ * @author xiao
+ *
+ */
 public class SootDriver {
 
 	public static void setGlobalOptions( Vector<String> opts )

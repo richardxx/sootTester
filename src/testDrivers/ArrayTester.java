@@ -17,7 +17,11 @@ import soot.jimple.toolkits.callgraph.CallGraph;
 import soot.jimple.toolkits.callgraph.Edge;
 import soot.util.Chain;
 
-
+/**
+ * Test the analysis result of the test case "Array.java".
+ * @author xiao
+ *
+ */
 public class ArrayTester extends SceneTransformer {
 	@Override
 	protected void internalTransform(String phaseName, Map options) {

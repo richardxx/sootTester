@@ -19,6 +19,11 @@ import soot.jimple.Stmt;
 import soot.jimple.spark.geom.geomPA.GeomPointsTo;
 import soot.jimple.spark.geom.geomPA.GeomQueries;
 
+/**
+ * Testing alias analysis precision.
+ * @author xiao
+ *
+ */
 public class AliasTester extends SceneTransformer {
 
 	@Override

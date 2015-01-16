@@ -40,6 +40,11 @@ import soot.jimple.toolkits.callgraph.CallGraph;
 import soot.jimple.toolkits.callgraph.Edge;
 import soot.util.queue.QueueReader;
 
+/**
+ * This test case finds out the call sites that call into JDK library and never call back to user functions. 
+ * @author xiao
+ *
+ */
 public class CallBackTester extends SceneTransformer 
 {
 
