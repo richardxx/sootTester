@@ -31,7 +31,7 @@ public class SootDriver {
 	{
 		opts.add("-p");
 		opts.add("cg");
-		opts.add("implicit-entry:false");
+		opts.add("implicit-entry:true");
 		
 		opts.add("-p");
 		opts.add("cg");
@@ -127,7 +127,7 @@ public class SootDriver {
 		
 		opts.add("-p");
 		opts.add("cg.spark");
-		opts.add("geom-app-only:true");
+		opts.add("geom-app-only:false");
 	}
 	
 	public static void main(String[] args) throws FileNotFoundException, InterruptedException 
@@ -184,7 +184,7 @@ public class SootDriver {
 		
 		
 		
-		String run_test1 = "-w -cp /home/xiao/git/sootTester/classes:/opt/jdk1.4.0/jre/lib/rt.jar testCases.Hello";
+		String run_hello = "-w -cp /home/xiao/git/sootTester/classes:/opt/jdk1.8.0_40/jre/lib/rt.jar:/opt/jdk1.8.0_40/jre/lib/jce.jar testCases.Hello";
 		
 		String run_multitest = "-w -cp /home/xiao/workspace/TA3111/bin:/opt/jdk1.5.0_22/jre/lib/rt.jar:/opt/jdk1.5.0_22/jre/lib/jce.jar MultiThreadTest";
 		
@@ -324,7 +324,7 @@ public class SootDriver {
 		
 		String run_rongxin_antlr = "-w -allow-phantom-refs -p cg reflection-log:/home/xiao/program/benchmarks/antlr/out/refl.log -cp /home/xiao/program/benchmarks/antlr/out:/home/xiao/program/benchmarks/java/dacapo-2006/antlr-deps.jar:/opt/jdk1.6.0_21/jre/lib/rt.jar:/opt/jdk1.6.0_21/jre/lib/jce.jar:/opt/jdk1.6.0_21/jre/lib/jsse.jar -main-class Harness Harness";
 		
-//		test_cases.add( new benchmark(run_test1, "Test1") );
+//		test_cases.add( new benchmark(run_hello, "test_hello") );
 //		test_cases.add( new benchmark(run_multitest, "multitest") );
 //		test_cases.add( new benchmark(run_compress, "compress") );
 //		test_cases.add( new benchmark(run_compress_1_4, "compress") );
@@ -378,7 +378,7 @@ public class SootDriver {
 //		test_cases.add( new benchmark(run_luindex_2006, "luindex_2006") );
 //		test_cases.add( new benchmark(run_pmd_2006, "pmd_2006") );
 //		test_cases.add( new benchmark(run_xalan_2006, "xalan_2006") );
-//		test_cases.add( new benchmark(run_chart_2006, "chart_2006") );
+		test_cases.add( new benchmark(run_chart_2006, "chart_2006") );
 //		test_cases.add( new benchmark(run_eclipse_2006, "eclipse_2006") );
 //		test_cases.add( new benchmark(run_hsqldb_2006, "hsqldb_2006") );
 //		test_cases.add( new benchmark(run_jedit_1_4, "jedit1") );
@@ -392,11 +392,16 @@ public class SootDriver {
 //		test_cases.add( new benchmark(run_avrora_default, "avrora-huge") );
 //		test_cases.add( new benchmark(run_luindex_default, "luindex_default") );
 		
-		test_cases.add( new benchmark(run_rongxin_antlr, "antlr_2006") );
+//		test_cases.add( new benchmark(run_rongxin_antlr, "antlr_2006") );
 		
 		boolean isDump = false;
-
 		Vector<String> opts = new Vector<String>();
+		
+		Pack wjtp = PackManager.v().getPack("wjtp");
+//		wjtp.add(new Transform("wjtp.xx", new TestQueryByAnyEdge()));
+//		wjtp.add(new Transform("wjtp.xx", new CallBackTester()));
+//		wjtp.add(new Transform("wjtp.xx", new AliasTester()));
+//		wjtp.add(new Transform("wjtp.xx", new HelloTester()));
 		
 		for ( int i = 0; i < test_cases.size(); ++i ) {
 			benchmark tc = test_cases.get(i);
@@ -413,15 +418,9 @@ public class SootDriver {
 				opts.add("-p");
 				opts.add("cg.spark");
 				opts.add("geom-dump-verbose:" + "dump/" + tc.file_name);
-				Pack wjtp = PackManager.v().getPack("wjtp");
+				wjtp = PackManager.v().getPack("wjtp");
 				wjtp.add(new Transform("wjtp.dpts", new dumpTransformer()));
 			}
-			
-			Pack wjtp = PackManager.v().getPack("wjtp");
-//			wjtp.add(new Transform("wjtp.muvi", new TestQueryByAnyEdge()));
-//			wjtp.add(new Transform("wjtp.muvi", new CallBackTester()));
-//			wjtp.add(new Transform("wjtp.muvi", new AliasTester()));
-			wjtp.add(new Transform("wjtp.muvi", new HelloTester()));
 			
 			// We start a new thread to run soot
 			Main.main( opts.toArray(new String[0]) );

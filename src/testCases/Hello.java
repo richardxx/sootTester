@@ -6,4 +6,8 @@ public class Hello {
     public static void main(String[] args) {
           o = new Object();
     }
+    
+    public void run() {
+        
+    }
 }
